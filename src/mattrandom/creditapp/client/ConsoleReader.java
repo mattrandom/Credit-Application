@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ConsoleReader {
 
-    public Person readInputParameters() {
+    public CreditApplication readInputParameters() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter your name: ");
@@ -43,12 +43,15 @@ public class ConsoleReader {
         System.out.println("Enter loan amount:");
         double purposeOfLoanAmount = in.nextDouble();
 
+        System.out.println("Enter loan period (in years):");
+        byte loanPeriod = in.nextByte();
+
         PersonalData personalData = new PersonalData(name, lastName, mothersMaidenName, maritalStatus, education,
                                                         income, numOfDependant);
 
         ContactData contactData = new ContactData(email, phoneNumber);
-        PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType, purposeOfLoanAmount);
+        PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType, purposeOfLoanAmount, loanPeriod);
 
-        return new Person(personalData, contactData);
+        return new CreditApplication(new Person(personalData, contactData), purposeOfLoan);
     }
 }
