@@ -31,16 +31,23 @@ public class ConsoleReader {
         String phoneNumber = in.next();
 
         System.out.println("Enter total monthly income in PLN: ");
-        double totalMonthlyIncomeInPln = in.nextDouble();
+        double income = in.nextDouble();
 
 
         System.out.println("Enter number of family dependants (including applicant): ");
-        int numOfFamilyDependants = in.nextInt();
+        int numOfDependant = in.nextInt();
+
+        System.out.println("What is purpose of loan? (MORTGAGE | PERSONAL_LOAN):");
+        PurposeOfLoanType purposeOfLoanType = PurposeOfLoanType.valueOf(in.next());
+
+        System.out.println("Enter loan amount:");
+        double purposeOfLoanAmount = in.nextDouble();
 
         PersonalData personalData = new PersonalData(name, lastName, mothersMaidenName, maritalStatus, education,
-                                                        totalMonthlyIncomeInPln, numOfFamilyDependants);
+                                                        income, numOfDependant);
 
         ContactData contactData = new ContactData(email, phoneNumber);
+        PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType, purposeOfLoanAmount);
 
         return new Person(personalData, contactData);
     }

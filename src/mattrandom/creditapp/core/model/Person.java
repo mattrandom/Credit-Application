@@ -7,6 +7,7 @@ public class Person {
     public Person(PersonalData personalData, ContactData contactData) {
         this.personalData = personalData;
         this.contactData = contactData;
+
     }
 
     public PersonalData getPersonalData() {
