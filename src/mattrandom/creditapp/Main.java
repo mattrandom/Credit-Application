@@ -2,7 +2,7 @@ package mattrandom.creditapp;
 
 import mattrandom.creditapp.client.ConsoleReader;
 import mattrandom.creditapp.core.CreaditApplicationService;
-import mattrandom.creditapp.core.Person;
+import mattrandom.creditapp.core.model.Person;
 
 public class Main {
 
@@ -12,9 +12,6 @@ public class Main {
 
         String decision = service.getDecision(person);
         System.out.println(decision);
-
-
-
 
     }
 }

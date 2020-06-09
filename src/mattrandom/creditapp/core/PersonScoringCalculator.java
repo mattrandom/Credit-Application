@@ -1,12 +1,17 @@
 package mattrandom.creditapp.core;
 
+import mattrandom.creditapp.core.model.Person;
+
 public class PersonScoringCalculator {
 
     public int calculate(Person person) {
-        double incomePerFamilyMember = person.getTotalMonthlyIncomeInPln() / person.getNumOfFamilyDependants();
+        double incomePerFamilyMember = person.getPersonalData().getTotalMonthlyIncomeInPln() / person.getPersonalData().getNumOfFamilyDependants();
         int pointsForIncome = (int) (incomePerFamilyMember / 1000) * 100;
-        int pointsForMarried = person.isMarried() ? 100 : 0;
-        return pointsForIncome + pointsForMarried;
+
+        int maritalStatusScoring =  person.getPersonalData().getMaritalStatus().getScoringPoints();
+        int educationLevelScoring = person.getPersonalData().getEducation().getScoringPoints();
+
+        return pointsForIncome + maritalStatusScoring + educationLevelScoring;
 
     }
 }
