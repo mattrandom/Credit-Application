@@ -6,31 +6,24 @@ import mattrandom.creditapp.core.model.Person;
 import java.math.BigDecimal;
 
 public class CreaditApplicationService {
-    private final PersonScoringCalculator calculator;
+    private final PersonScoringCalculator personScoringCalculator;
+    private final CreditRatingCalculator creditRatingCalculator;
 
-    public CreaditApplicationService(PersonScoringCalculator calculator) {
-        this.calculator = calculator;
+    public CreaditApplicationService(PersonScoringCalculator calculator, CreditRatingCalculator creditRatingCalculator) {
+        this.personScoringCalculator = calculator;
+        this.creditRatingCalculator = creditRatingCalculator;
     }
 
     public CreditApplicationDecision getDecision(CreditApplication creditApplication) {
         Person person = creditApplication.getPerson();
-        int scoring = calculator.calculate(person);
+        int scoring = personScoringCalculator.calculate(person);
 
         if (scoring < 300) {
             return new CreditApplicationDecision(DecisionType.NEGATIVE_SCORING, person.getPersonalData(),null);
         } else if (scoring <= 400) {
             return new CreditApplicationDecision(DecisionType.CONTACT_REQUIRED, person.getPersonalData(), null);
         } else {
-            double creditRate = person.getIncomePerFamilyMember() * 12 * creditApplication.getPurposeOfLoan().getPeriod();
-
-            switch (creditApplication.getPurposeOfLoan().getPurposeOfLoanType()) {
-                case MORTGAGE:
-                    creditRate *= Constants.MORTGAGE_LOAN_RATE;
-                    break;
-                case PERSONAL_LOAN:
-                    creditRate *= Constants.PERSONAL_LOAN_LOAN_RATE;
-                    break;
-            }
+            double creditRate = creditRatingCalculator.calculate(creditApplication);
             if (creditRate >= creditApplication.getPurposeOfLoan().getAmount()) {
                 return new CreditApplicationDecision(DecisionType.POSITIVE, person.getPersonalData(), creditRate);
             } else {
@@ -39,4 +32,5 @@ public class CreaditApplicationService {
             }
         }
     }
+
 }

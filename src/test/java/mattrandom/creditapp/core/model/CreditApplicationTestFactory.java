@@ -9,10 +9,10 @@ public class CreditApplicationTestFactory {
         return creditApplication;
     }
 
-    public static CreditApplication create(PurposeOfLoanType purposeOfLoanType, double expectedLoanAmount, int expectedLoanPeriod, double totalMonthlyIncomeInPln, int numOfDependants){
-        Person person = PersonTestFactory.create(totalMonthlyIncomeInPln, numOfDependants, Education.MIDDLE,MaritalStatus.SEPARATED);
+    public static CreditApplication create(double expectedLoanAmount){
+        Person person = PersonTestFactory.create(4000, 1, Education.MIDDLE,MaritalStatus.SEPARATED);
 
-        PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType,expectedLoanAmount,expectedLoanPeriod);
+        PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, expectedLoanAmount, 25);
         CreditApplication creditApplication = new CreditApplication(person,purposeOfLoan);
         return creditApplication;
     }
