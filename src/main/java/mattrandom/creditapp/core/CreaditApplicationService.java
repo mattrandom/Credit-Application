@@ -2,10 +2,15 @@ package mattrandom.creditapp.core;
 
 import mattrandom.creditapp.core.model.CreditApplication;
 import mattrandom.creditapp.core.model.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class CreaditApplicationService {
+    private static final Logger log = LoggerFactory.getLogger(CreaditApplicationService.class);
     private final PersonScoringCalculator personScoringCalculator;
     private final CreditRatingCalculator creditRatingCalculator;
 
@@ -15,22 +20,28 @@ public class CreaditApplicationService {
     }
 
     public CreditApplicationDecision getDecision(CreditApplication creditApplication) {
+        String id = UUID.randomUUID().toString();
+        log.info("Application ID is " + id);
+        MDC.put("id", id);
+
         Person person = creditApplication.getPerson();
         int scoring = personScoringCalculator.calculate(person);
+        CreditApplicationDecision decision;
 
         if (scoring < 300) {
-            return new CreditApplicationDecision(DecisionType.NEGATIVE_SCORING, person.getPersonalData(),null);
+            decision =  new CreditApplicationDecision(DecisionType.NEGATIVE_SCORING, person.getPersonalData(),null);
         } else if (scoring <= 400) {
-            return new CreditApplicationDecision(DecisionType.CONTACT_REQUIRED, person.getPersonalData(), null);
+            decision =  new CreditApplicationDecision(DecisionType.CONTACT_REQUIRED, person.getPersonalData(), null);
         } else {
             double creditRate = creditRatingCalculator.calculate(creditApplication);
             if (creditRate >= creditApplication.getPurposeOfLoan().getAmount()) {
-                return new CreditApplicationDecision(DecisionType.POSITIVE, person.getPersonalData(), creditRate);
+               decision =  new CreditApplicationDecision(DecisionType.POSITIVE, person.getPersonalData(), creditRate);
             } else {
-                BigDecimal roundedCreditRate = new BigDecimal(creditRate).setScale(2);
-                return new CreditApplicationDecision(DecisionType.NEGATIVE_RATING, person.getPersonalData(), creditRate);
+                decision =  new CreditApplicationDecision(DecisionType.NEGATIVE_RATING, person.getPersonalData(), creditRate);
             }
         }
+        log.info("Decision = " + decision.getType());
+        return decision;
     }
 
 }

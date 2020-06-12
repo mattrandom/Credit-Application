@@ -23,7 +23,6 @@ public class CreditApplicationServiceTest {
 
     @Mock
     private PersonScoringCalculator calculatorMock;
-
     @Mock
     private CreditRatingCalculator creditRatingCalculatorMock;
 
