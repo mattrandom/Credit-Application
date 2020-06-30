@@ -12,6 +12,12 @@ public class IncomeCalculator {
         double incomePerFamilyMember = person.getIncomePerFamilyMember();
         int pointsForIncome = (int) (incomePerFamilyMember / 1000) * 100;
         log.info("Income per family member = " + incomePerFamilyMember + "." + ScoringUtils.getPointsString(pointsForIncome));
+
+        if (person.getFinanceData().getSourcesOfIncome().length > 1) {
+            pointsForIncome += 100;
+            log.info("Extra points for " + person.getFinanceData().getSourcesOfIncome().length + " sources for income " +
+                    ScoringUtils.getPointsString(100));
+        }
         return pointsForIncome;
     }
 

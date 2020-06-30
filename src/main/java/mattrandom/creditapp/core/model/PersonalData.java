@@ -6,17 +6,15 @@ public class PersonalData {
     private final String mothersMaidenName;
     private final MaritalStatus maritalStatus;
     private final Education education;
-    private final double totalMonthlyIncomeInPln;
     private final int numOfFamilyDependants;
 
     public PersonalData(String name, String lastName, String mothersMaidenName, MaritalStatus maritalStatus,
-                        Education education, double totalMonthlyIncomeInPln, int numOfFamilyDependants) {
+                        Education education, int numOfFamilyDependants) {
         this.name = name;
         this.lastName = lastName;
         this.mothersMaidenName = mothersMaidenName;
         this.maritalStatus = maritalStatus;
         this.education = education;
-        this.totalMonthlyIncomeInPln = totalMonthlyIncomeInPln;
         this.numOfFamilyDependants = numOfFamilyDependants;
     }
 
@@ -38,10 +36,6 @@ public class PersonalData {
 
     public Education getEducation() {
         return education;
-    }
-
-    public double getTotalMonthlyIncomeInPln() {
-        return totalMonthlyIncomeInPln;
     }
 
     public int getNumOfFamilyDependants() {

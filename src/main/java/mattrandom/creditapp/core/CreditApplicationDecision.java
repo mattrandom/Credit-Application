@@ -20,10 +20,10 @@ public class CreditApplicationDecision {
             case POSITIVE:
                 return "Congratulations, " + personalData.getName() + " " + personalData.getLastName() + ", decision is positive.";
             case NEGATIVE_SCORING:
-                BigDecimal roundedCreditRate = new BigDecimal(creditRate).setScale(2);
-                return "Sorry, " + personalData.getName() + " " + personalData.getLastName() + ", decision is negative. Bank can borrow only " + creditRate;
+                return "Sorry, " + personalData.getName() + " " + personalData.getLastName() + ", decision is negative.";
             case NEGATIVE_RATING:
-                return "Sorry " + personalData.getName() + " " + personalData.getLastName() + ", decision is negative.";
+                BigDecimal roundedCreditRate = new BigDecimal(creditRate).setScale(2);
+                return "Sorry " + personalData.getName() + " " + personalData.getLastName() + ", decision is negative. Bank can borrow only " + roundedCreditRate;
             case CONTACT_REQUIRED:
                 return "Sorry, " + personalData.getName() + " " + personalData.getLastName() + ", bank requires additional documents. Our Consultant will contact you.";
         }
