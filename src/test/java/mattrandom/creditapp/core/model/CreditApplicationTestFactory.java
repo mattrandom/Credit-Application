@@ -2,6 +2,10 @@ package mattrandom.creditapp.core.model;
 
 public class CreditApplicationTestFactory {
 
+    public static CreditApplication create(Person person, PurposeOfLoan purposeOfLoan) {
+        return new CreditApplication(person, purposeOfLoan);
+    }
+
     public static CreditApplication create() {
         Person person = PersonTestFactory.create(5000.00, 2, Education.MIDDLE,MaritalStatus.SEPARATED);
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 100000, 35);

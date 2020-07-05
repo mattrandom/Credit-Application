@@ -8,7 +8,7 @@ public class PersonalData {
     private final Education education;
     private final int numOfFamilyDependants;
 
-    public PersonalData(String name, String lastName, String mothersMaidenName, MaritalStatus maritalStatus,
+    private PersonalData(String name, String lastName, String mothersMaidenName, MaritalStatus maritalStatus,
                         Education education, int numOfFamilyDependants) {
         this.name = name;
         this.lastName = lastName;
@@ -40,5 +40,55 @@ public class PersonalData {
 
     public int getNumOfFamilyDependants() {
         return numOfFamilyDependants;
+    }
+
+    public static class Builder {
+        private String name;
+        private String lastName;
+        private String mothersMaidenName;
+        private MaritalStatus maritalStatus;
+        private Education education;
+        private int numOfFamilyDependants;
+
+        private Builder() {
+        }
+
+        public static Builder create() {
+            return new Builder();
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder withMothersMaidenName(String mothersMaidenName) {
+            this.mothersMaidenName = mothersMaidenName;
+            return this;
+        }
+
+        public Builder withMaritalStatus(MaritalStatus maritalStatus) {
+            this.maritalStatus = maritalStatus;
+            return this;
+        }
+
+        public Builder withEducation(Education education) {
+            this.education = education;
+            return this;
+        }
+
+        public Builder withNumOfFamilyDependants(int numOfFamilyDependants) {
+            this.numOfFamilyDependants = numOfFamilyDependants;
+            return this;
+        }
+
+        public PersonalData build() {
+            return new PersonalData(name, lastName, mothersMaidenName, maritalStatus, education, numOfFamilyDependants);
+        }
     }
 }
