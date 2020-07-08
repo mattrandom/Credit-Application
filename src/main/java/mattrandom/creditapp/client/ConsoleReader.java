@@ -1,9 +1,10 @@
 package mattrandom.creditapp.client;
 
-import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.model.*;
 
 import java.util.Scanner;
+
+import static mattrandom.creditapp.core.Constants.*;
 
 public class ConsoleReader {
 
@@ -22,8 +23,25 @@ public class ConsoleReader {
         PurposeOfLoanType purposeOfLoanType = getPurposeOfLoanType(in);
         double purposeOfLoanAmount = getPurposeOfLoanAmount(in);
         int period = getPeriod(in);
+        String city = getCityAddress(in);
+        String zipCode = getZipCodeAddress(in);
+        String state = getStateAddress(in);
+        String street = getStreetAddress(in);
+        String houseNumber = getHouseNumber(in);
+        String corespondCity = getCorrespondenceCityAddress(in);
+        String corespondZipCode = getCorrespondenceZipCodeAddress(in);
+        String corespondState = getCorrespondenceStateAddress(in);
+        String corespondStreet = getCorrespondenceStreetAddress(in);
+        String corespondHouseNumber = getCorrespondenceHouseNumber(in);
 
-        ContactData contactData = new ContactData(email, phoneNumber);
+        ContactData contactData = ContactData.Builder
+                .create()
+                .withEmail(email)
+                .withPhoneNumber(phoneNumber)
+                .withHomeAddress(new Address(street, city, houseNumber, zipCode, state))
+                .withCorrespondenceAddress(new Address(corespondStreet, corespondCity, corespondHouseNumber, corespondZipCode, corespondState))
+                .build();
+
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType, purposeOfLoanAmount, period);
         FinanceData financeData = new FinanceData(sourcesOfIncome);
 
@@ -42,6 +60,96 @@ public class ConsoleReader {
                         .build())
                 .build(),
                 purposeOfLoan);
+    }
+
+    private String getCorrespondenceHouseNumber(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter house number of the correspondence address:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_HOUSE_NUMBER_REGEX));
+        return input;
+    }
+
+    private String getCorrespondenceZipCodeAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter ZIP-CODE of the correspondence address:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_ZIP_CODE_REGEX));
+        return input;
+    }
+
+    private String getCorrespondenceStateAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter state of the correspondence address:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_STATE_REGEX));
+        return input;
+    }
+
+    private String getCorrespondenceCityAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter city of the correspondence address:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_CITY_REGEX));
+        return input;
+    }
+
+    private String getCorrespondenceStreetAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter street of the correspondence address:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_STREET_REGEX));
+        return input;
+    }
+
+    private String getHouseNumber(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter the house number of your residence:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_HOUSE_NUMBER_REGEX));
+        return input;
+    }
+
+    private String getZipCodeAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter the ZIP-CODE of your city:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_ZIP_CODE_REGEX));
+        return input;
+    }
+
+    private String getStateAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter the state of residence:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_STATE_REGEX));
+        return input;
+    }
+
+    private String getCityAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter the city of residence:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_CITY_REGEX));
+        return input;
+    }
+
+    private String getStreetAddress(Scanner in) {
+        String input;
+        do {
+            System.out.println("Enter your street name address:");
+            input = in.next();
+        } while (!StringValidator.validateString(input, ADDRESS_STREET_REGEX));
+        return input;
     }
 
     private int getPeriod(Scanner in) {
@@ -115,7 +223,7 @@ public class ConsoleReader {
         do {
             System.out.println("Enter your e-mail address:");
             input = in.next();
-        } while (!StringValidator.validateString(input, Constants.EMAIL_REGEX));
+        } while (!StringValidator.validateString(input, EMAIL_REGEX));
         return input;
     }
 
@@ -124,7 +232,7 @@ public class ConsoleReader {
         do {
             System.out.println("Enter your mothers maiden name: ");
              input = in.next();
-        } while (!StringValidator.validateString(input, Constants.LAST_NAME_REGEX));
+        } while (!StringValidator.validateString(input, LAST_NAME_REGEX));
         return input;
     }
 
@@ -133,7 +241,7 @@ public class ConsoleReader {
         do {
             System.out.println("Enter your last name: ");
             input = in.next();
-        } while (!StringValidator.validateString(input, Constants.LAST_NAME_REGEX));
+        } while (!StringValidator.validateString(input, LAST_NAME_REGEX));
         return input;
     }
 
@@ -142,7 +250,7 @@ public class ConsoleReader {
         do {
             System.out.println("Enter your name: ");
             input = in.next();
-        } while (!StringValidator.validateString(input, Constants.NAME_REGEX));
+        } while (!StringValidator.validateString(input, NAME_REGEX));
         return input;
     }
 

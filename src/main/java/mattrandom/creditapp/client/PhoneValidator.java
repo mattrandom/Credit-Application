@@ -1,9 +1,9 @@
 package mattrandom.creditapp.client;
 
-import mattrandom.creditapp.core.Constants;
+import static mattrandom.creditapp.core.Constants.PHONE_REGEX;
 
 public class PhoneValidator {
     public static boolean validate(String input) {
-        return input.matches(Constants.PHONE_REGEX);
+        return input.matches(PHONE_REGEX);
     }
 }
