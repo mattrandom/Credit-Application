@@ -45,7 +45,7 @@ public class ConsoleReader {
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType, purposeOfLoanAmount, period);
         FinanceData financeData = new FinanceData(sourcesOfIncome);
 
-        return new CreditApplication(Person.Builder
+        return new CreditApplication(NaturalPerson.Builder
                 .create()
                 .withContactData(contactData)
                 .withFinanceData(financeData)
