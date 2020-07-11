@@ -13,11 +13,11 @@ import static mattrandom.creditapp.core.DecisionType.*;
 
 public class CreaditApplicationService {
     private static final Logger log = LoggerFactory.getLogger(CreaditApplicationService.class);
-    private final PersonScoringCalculator personScoringCalculator;
+    private final PersonScoringCalculatorFactory personScoringCalculatorFactory;
     private final CreditRatingCalculator creditRatingCalculator;
 
-    public CreaditApplicationService(PersonScoringCalculator calculator, CreditRatingCalculator creditRatingCalculator) {
-        this.personScoringCalculator = calculator;
+    public CreaditApplicationService(PersonScoringCalculatorFactory personScoringCalculatorFactory, CreditRatingCalculator creditRatingCalculator) {
+        this.personScoringCalculatorFactory = personScoringCalculatorFactory;
         this.creditRatingCalculator = creditRatingCalculator;
     }
 
@@ -27,7 +27,7 @@ public class CreaditApplicationService {
         MDC.put("id", id);
 
         Person person = creditApplication.getPerson();
-        int scoring = personScoringCalculator.calculate(person);
+        int scoring = personScoringCalculatorFactory.getCalculator(person).calculate(person);
         CreditApplicationDecision decision;
 
         if (scoring < 300) {

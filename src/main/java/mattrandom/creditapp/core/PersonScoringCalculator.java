@@ -7,8 +7,7 @@ import mattrandom.creditapp.core.scoring.MaritalStatusCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PersonScoringCalculator {
-
+public abstract class PersonScoringCalculator {
     private static final Logger log = LoggerFactory.getLogger(PersonScoringCalculator.class);
     private final IncomeCalculator incomeCalculator;
     private final MaritalStatusCalculator maritalStatusCalculator;
@@ -23,8 +22,10 @@ public class PersonScoringCalculator {
 
     public int calculate(Person person) {
         int scoring = incomeCalculator.calculate(person) + maritalStatusCalculator.calculate(person) +
-                educationCalculator.calculate(person);
+                educationCalculator.calculate(person) + addAdditionalPoints(person);
         log.info("Calculated scoring = " + scoring + " points");
         return scoring;
     }
+
+    protected abstract int addAdditionalPoints(Person person);
 }

@@ -2,7 +2,9 @@ package mattrandom.creditapp.core;
 
 import mattrandom.creditapp.core.model.CreditApplication;
 import mattrandom.creditapp.core.model.CreditApplicationTestFactory;
+import mattrandom.creditapp.core.model.Person;
 import mattrandom.creditapp.core.model.PurposeOfLoanType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,14 +27,22 @@ public class CreditApplicationServiceTest {
     @Mock
     private PersonScoringCalculator calculatorMock;
     @Mock
+    private PersonScoringCalculatorFactory personScoringCalculatorFactoryMock;
+    @Mock
     private CreditRatingCalculator creditRatingCalculatorMock;
+
+    @BeforeEach
+    public void init(){
+        BDDMockito.given(personScoringCalculatorFactoryMock.getCalculator(any(Person.class)))
+                .willReturn(calculatorMock);
+    }
 
     @Test
     @DisplayName("Should return NEGATIVE_SCORING decision when scoring is < 300")
     public void test1() {
         //given
         CreditApplication creditApplication = CreditApplicationTestFactory.create();
-        BDDMockito.given(calculatorMock.calculate(creditApplication.getPerson())).willReturn(100);
+        BDDMockito.given(calculatorMock.calculate(eq(creditApplication.getPerson()))).willReturn(100);
         //when
         CreditApplicationDecision decision = cut.getDecision(creditApplication);
         //then
@@ -43,7 +54,7 @@ public class CreditApplicationServiceTest {
     public void test2() {
         //given
         CreditApplication creditApplication = CreditApplicationTestFactory.create();
-        BDDMockito.given(calculatorMock.calculate(creditApplication.getPerson())).willReturn(350);
+        BDDMockito.given(calculatorMock.calculate(eq(creditApplication.getPerson()))).willReturn(350);
         //when
         CreditApplicationDecision decision = cut.getDecision(creditApplication);
         //then
@@ -55,7 +66,7 @@ public class CreditApplicationServiceTest {
     public void test3() {
         //given
         CreditApplication creditApplication = CreditApplicationTestFactory.create(190000.00);
-        BDDMockito.given(calculatorMock.calculate(creditApplication.getPerson())).willReturn(500);
+        BDDMockito.given(calculatorMock.calculate(eq(creditApplication.getPerson()))).willReturn(500);
         BDDMockito.given(creditRatingCalculatorMock.calculate(eq(creditApplication))).willReturn(189000.00);
         //when
         CreditApplicationDecision decision = cut.getDecision(creditApplication);
@@ -68,7 +79,7 @@ public class CreditApplicationServiceTest {
     public void test4() {
         //given
         CreditApplication creditApplication = CreditApplicationTestFactory.create(150000.00);
-        BDDMockito.given(calculatorMock.calculate(creditApplication.getPerson())).willReturn(450);
+        BDDMockito.given(calculatorMock.calculate(eq(creditApplication.getPerson()))).willReturn(450);
         BDDMockito.given(creditRatingCalculatorMock.calculate(eq(creditApplication))).willReturn(151000.00);
         //when
         CreditApplicationDecision decision = cut.getDecision(creditApplication);

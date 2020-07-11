@@ -6,6 +6,10 @@ public class CreditApplicationTestFactory {
         return new CreditApplication(person, purposeOfLoan);
     }
 
+    public static CreditApplication create(SelfEmployed person, PurposeOfLoan purposeOfLoan) {
+        return new CreditApplication(person, purposeOfLoan);
+    }
+
     public static CreditApplication create() {
         NaturalPerson person = PersonTestFactory.create(5000.00, 2, Education.MIDDLE, MaritalStatus.SEPARATED);
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 100000, 35);

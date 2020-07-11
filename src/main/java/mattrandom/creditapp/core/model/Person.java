@@ -1,6 +1,6 @@
 package mattrandom.creditapp.core.model;
 
-public class Person {
+public abstract class Person {
     private final PersonalData personalData;
     private final ContactData contactData;
     private final FinanceData financeData;
