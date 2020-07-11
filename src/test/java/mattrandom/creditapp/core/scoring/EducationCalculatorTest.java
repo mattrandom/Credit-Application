@@ -11,7 +11,6 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EducationCalculatorTest {
-
     private EducationCalculator cut = new EducationCalculator();
 
     @ParameterizedTest
