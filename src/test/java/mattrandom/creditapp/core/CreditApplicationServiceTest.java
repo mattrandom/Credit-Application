@@ -1,9 +1,11 @@
 package mattrandom.creditapp.core;
 
+import mattrandom.creditapp.core.exception.ValidationException;
 import mattrandom.creditapp.core.model.CreditApplication;
 import mattrandom.creditapp.core.model.CreditApplicationTestFactory;
 import mattrandom.creditapp.core.model.Person;
 import mattrandom.creditapp.core.scoring.PersonCalculator;
+import mattrandom.creditapp.core.validation.CreditApplicationValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,11 +31,17 @@ public class CreditApplicationServiceTest {
     private PersonScoringCalculatorFactory personScoringCalculatorFactoryMock;
     @Mock
     private CreditRatingCalculator creditRatingCalculatorMock;
+    @Mock
+    private CreditApplicationValidator creditApplicationValidatorMock;
 
     @BeforeEach
-    public void init(){
+    public void init() throws ValidationException {
         BDDMockito.given(personScoringCalculatorFactoryMock.getCalculator(any(Person.class)))
                 .willReturn(personCalculatorMock);
+
+        BDDMockito.doNothing()
+                .when(creditApplicationValidatorMock)
+                .validate(any(CreditApplication.class));
     }
 
     @Test

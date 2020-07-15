@@ -4,6 +4,10 @@ import mattrandom.creditapp.core.model.*;
 import mattrandom.creditapp.core.scoring.EducationCalculator;
 import mattrandom.creditapp.core.scoring.IncomeCalculator;
 import mattrandom.creditapp.core.scoring.MaritalStatusCalculator;
+import mattrandom.creditapp.core.validation.CreditApplicationValidator;
+import mattrandom.creditapp.core.validation.PersonValidator;
+import mattrandom.creditapp.core.validation.PersonalDataValidator;
+import mattrandom.creditapp.core.validation.PurposeOfLoanValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +19,8 @@ public class CreditApplicationServiceBddTest {
     private IncomeCalculator incomeCalculator = new IncomeCalculator();
     private SelfEmployedScoringCalculator selfEmployedScoringCalculator = new SelfEmployedScoringCalculator();
     private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator);
-    private CreaditApplicationService cut = new CreaditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator());
+    private CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(new PersonValidator(new PersonalDataValidator()), new PurposeOfLoanValidator());
+    private CreaditApplicationService cut = new CreaditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator);
 
     @Test
     @DisplayName("should return Decision is NEGATIVE_REQUIREMENTS_NOT_MET, min loan amount requirement is not met")
@@ -25,6 +30,9 @@ public class CreditApplicationServiceBddTest {
                 .create()
                 .withPersonalData(PersonalData.Builder
                         .create()
+                        .withName("Test")
+                        .withLastName("Test")
+                        .withMothersMaidenName("Test")
                         .withEducation(Education.MIDDLE)
                         .withMaritalStatus(MaritalStatus.MARRIED)
                         .withNumOfFamilyDependants(2)
@@ -52,6 +60,9 @@ public class CreditApplicationServiceBddTest {
                 .create()
                 .withPersonalData(PersonalData.Builder
                         .create()
+                        .withName("Test")
+                        .withLastName("Test")
+                        .withMothersMaidenName("Test")
                         .withEducation(Education.MIDDLE)
                         .withMaritalStatus(MaritalStatus.MARRIED)
                         .withNumOfFamilyDependants(2)
@@ -79,6 +90,9 @@ public class CreditApplicationServiceBddTest {
                 .create()
                 .withPersonalData(PersonalData.Builder
                         .create()
+                        .withName("Test")
+                        .withLastName("Test")
+                        .withMothersMaidenName("Test")
                         .withEducation(Education.MIDDLE)
                         .withMaritalStatus(MaritalStatus.MARRIED)
                         .withNumOfFamilyDependants(2)

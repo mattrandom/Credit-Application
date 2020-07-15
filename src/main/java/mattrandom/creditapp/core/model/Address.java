@@ -24,4 +24,24 @@ public class Address {
                 zipCode.equalsIgnoreCase(address.zipCode) &&
                 state.equalsIgnoreCase(address.state);
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getState() {
+        return state;
+    }
 }
