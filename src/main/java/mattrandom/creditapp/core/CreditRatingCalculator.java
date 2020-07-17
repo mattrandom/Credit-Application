@@ -10,7 +10,6 @@ import static mattrandom.creditapp.core.Constants.MORTGAGE_LOAN_RATE;
 import static mattrandom.creditapp.core.Constants.PERSONAL_LOAN_LOAN_RATE;
 
 public class CreditRatingCalculator {
-
     private static final Logger log = LoggerFactory.getLogger(CreditRatingCalculator.class);
 
     public double calculate(CreditApplication creditApplication) {

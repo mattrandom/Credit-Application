@@ -1,12 +1,14 @@
 package mattrandom.creditapp.core.model;
 
+import java.util.List;
+
 public class SelfEmployed extends Person {
     private final String nip;
     private final String regon;
     private final int yearsSinceFounded;
 
-    private SelfEmployed(int yearsSinceFounded, String nip, String regon, PersonalData personalData, ContactData contactData, FinanceData financeData) {
-        super(personalData, contactData, financeData);
+    private SelfEmployed(int yearsSinceFounded, String nip, String regon, PersonalData personalData, ContactData contactData, FinanceData financeData, List<FamilyMember> familyMemberList) {
+        super(personalData, contactData, financeData, familyMemberList);
         this.nip = nip;
         this.regon = regon;
         this.yearsSinceFounded = yearsSinceFounded;
@@ -23,11 +25,17 @@ public class SelfEmployed extends Person {
         private String nip;
         private String regon;
         private int yearsSinceFounded;
+        private List<FamilyMember> familyMemberList;
 
         private Builder() {}
 
         public static Builder create() {
             return new Builder();
+        }
+
+        public Builder withFamilyMembers(List<FamilyMember> familyMemberList) {
+            this.familyMemberList = familyMemberList;
+            return this;
         }
 
         public Builder withPersonalData(PersonalData personalData) {
@@ -61,7 +69,7 @@ public class SelfEmployed extends Person {
         }
 
         public SelfEmployed build() {
-            return new SelfEmployed(yearsSinceFounded, nip, regon, personalData, contactData, financeData);
+            return new SelfEmployed(yearsSinceFounded, nip, regon, personalData, contactData, financeData, familyMemberList);
         }
     }
 }

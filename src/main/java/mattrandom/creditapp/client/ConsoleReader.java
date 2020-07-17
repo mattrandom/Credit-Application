@@ -57,7 +57,6 @@ public class ConsoleReader implements CreditApplicationReader {
                         .withMothersMaidenName(mothersMaidenName)
                         .withMaritalStatus(maritalStatus)
                         .withEducation(education)
-                        .withNumOfFamilyDependants(numOfDependant)
                         .build())
                 .build(),
                 purposeOfLoan);

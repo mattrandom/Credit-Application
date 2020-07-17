@@ -1,13 +1,16 @@
 package mattrandom.creditapp.core.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class FinanceData {
-    private final SourceOfIncome[] sourcesOfIncome;
+    private final List<SourceOfIncome> sourcesOfIncome;
 
     public FinanceData(SourceOfIncome... sourceOfIncome) {
-        this.sourcesOfIncome = sourceOfIncome;
+        this.sourcesOfIncome = Arrays.asList(sourceOfIncome);
     }
 
-    public SourceOfIncome[] getSourcesOfIncome() {
+    public List<SourceOfIncome> getSourcesOfIncome() {
         return sourcesOfIncome;
     }
 }
