@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.eq;
 public class CreditApplicationServiceTest {
 
     @InjectMocks
-    private CreaditApplicationService cut;
+    private CreditApplicationService cut;
 
     @Mock
     private PersonCalculator personCalculatorMock;

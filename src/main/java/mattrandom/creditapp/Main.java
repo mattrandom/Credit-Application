@@ -1,6 +1,5 @@
 package mattrandom.creditapp;
 
-import mattrandom.creditapp.client.ConsoleReader;
 import mattrandom.creditapp.client.CreditApplicationReader;
 import mattrandom.creditapp.client.DummyCreditApplicationReader;
 import mattrandom.creditapp.core.*;
@@ -24,11 +23,15 @@ public class Main {
         PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator);
 
         CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(new PersonValidator(new PersonalDataValidator()), new PurposeOfLoanValidator());
-        CreaditApplicationService service = new CreaditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator);
-        CreditApplication creditApplication = reader.read();
+        CreditApplicationService service = new CreditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator);
+        CreditApplicationManager manager = new CreditApplicationManager(service);
 
-        CreditApplicationDecision decision = service.getDecision(creditApplication);
-        System.out.println(decision.getDesisionString());
+        manager.add(reader.read());
+        manager.add(reader.read());
+        manager.add(reader.read());
+        manager.add(reader.read());
+
+        manager.startProcessing();
 
     }
 }

@@ -8,28 +8,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-import java.util.UUID;
-
 import static mattrandom.creditapp.core.Constants.MIN_LOAN_AMOUNT_MORTGAGE;
 import static mattrandom.creditapp.core.DecisionType.*;
 
-public class CreaditApplicationService {
-    private static final Logger log = LoggerFactory.getLogger(CreaditApplicationService.class);
+public class CreditApplicationService {
+    private static final Logger log = LoggerFactory.getLogger(CreditApplicationService.class);
     private final PersonScoringCalculatorFactory personScoringCalculatorFactory;
     private final CreditRatingCalculator creditRatingCalculator;
     private final CreditApplicationValidator creditApplicationValidator;
 
-    public CreaditApplicationService(PersonScoringCalculatorFactory personScoringCalculatorFactory, CreditRatingCalculator creditRatingCalculator, CreditApplicationValidator creditApplicationValidator) {
+    public CreditApplicationService(PersonScoringCalculatorFactory personScoringCalculatorFactory, CreditRatingCalculator creditRatingCalculator, CreditApplicationValidator creditApplicationValidator) {
         this.personScoringCalculatorFactory = personScoringCalculatorFactory;
         this.creditRatingCalculator = creditRatingCalculator;
         this.creditApplicationValidator = creditApplicationValidator;
     }
 
     public CreditApplicationDecision getDecision(CreditApplication creditApplication) {
-        String id = UUID.randomUUID().toString();
-        log.info("Application ID is " + id);
+        String id = creditApplication.getId().toString();
         MDC.put("id", id);
-
 
         try {
             creditApplicationValidator.validate(creditApplication);
