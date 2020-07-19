@@ -15,4 +15,5 @@ public interface Constants {
     String ADDRESS_STATE_REGEX = "([A-ZĄ-Ź][a-zą-ź]+)([\\s-]([A-ZĄ-Ź][a-zą-ź]+))?";
     String ADDRESS_ZIP_CODE_REGEX = "(\\d){2}[-]{1}(\\d){3}";
     String ADDRESS_HOUSE_NUMBER_REGEX = "(\\d){1,3}([\\/]{1}(\\d){1,3})?";
+    String PESEL_REGEX = "(\\d){11}";
 }

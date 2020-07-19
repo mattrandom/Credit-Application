@@ -1,5 +1,7 @@
 package mattrandom.creditapp.core;
 
+import mattrandom.creditapp.core.model.CreditApplication;
+import mattrandom.creditapp.core.model.CreditApplicationTestFactory;
 import mattrandom.creditapp.core.model.Person;
 import mattrandom.creditapp.core.model.PersonTestFactory;
 import mattrandom.creditapp.core.scoring.*;
@@ -12,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 
 class CompoundScoringCalculatorTest {
-    private PersonCalculator calculator1Mock = Mockito.mock(PersonCalculator.class);
-    private PersonCalculator calculator2Mock = Mockito.mock(PersonCalculator.class);
-    private PersonCalculator calculator3Mock = Mockito.mock(PersonCalculator.class);
+    private ScoringCalculator calculator1Mock = Mockito.mock(ScoringCalculator.class);
+    private ScoringCalculator calculator2Mock = Mockito.mock(ScoringCalculator.class);
+    private ScoringCalculator calculator3Mock = Mockito.mock(ScoringCalculator.class);
 
     private CompoundScoringCalculator cut = new CompoundScoringCalculator(calculator1Mock, calculator2Mock, calculator3Mock);
 
@@ -22,12 +24,12 @@ class CompoundScoringCalculatorTest {
     @DisplayName("should return sum of calculations")
     public void test1() {
         //given
-        Person person = PersonTestFactory.create();
-        BDDMockito.given(calculator1Mock.calculate(eq(person))).willReturn(50);
-        BDDMockito.given(calculator2Mock.calculate(eq(person))).willReturn(200);
-        BDDMockito.given(calculator3Mock.calculate(eq(person))).willReturn(100);
+        CreditApplication creditApplication = CreditApplicationTestFactory.create();
+        BDDMockito.given(calculator1Mock.calculate(eq(creditApplication))).willReturn(50);
+        BDDMockito.given(calculator2Mock.calculate(eq(creditApplication))).willReturn(200);
+        BDDMockito.given(calculator3Mock.calculate(eq(creditApplication))).willReturn(100);
         //when
-        int scoring = cut.calculate(person);
+        int scoring = cut.calculate(creditApplication);
         //then
         assertEquals(350, scoring);
     }

@@ -2,12 +2,10 @@ package mattrandom.creditapp.core;
 
 import mattrandom.creditapp.core.model.*;
 import mattrandom.creditapp.core.scoring.EducationCalculator;
+import mattrandom.creditapp.core.scoring.GuarantorsCalculator;
 import mattrandom.creditapp.core.scoring.IncomeCalculator;
 import mattrandom.creditapp.core.scoring.MaritalStatusCalculator;
-import mattrandom.creditapp.core.validation.CreditApplicationValidator;
-import mattrandom.creditapp.core.validation.PersonValidator;
-import mattrandom.creditapp.core.validation.PersonalDataValidator;
-import mattrandom.creditapp.core.validation.PurposeOfLoanValidator;
+import mattrandom.creditapp.core.validation.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +19,10 @@ public class CreditApplicationServiceBddTest {
     private MaritalStatusCalculator maritalStatusCalculator = new MaritalStatusCalculator();
     private IncomeCalculator incomeCalculator = new IncomeCalculator();
     private SelfEmployedScoringCalculator selfEmployedScoringCalculator = new SelfEmployedScoringCalculator();
-    private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator);
-    private CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(new PersonValidator(new PersonalDataValidator()), new PurposeOfLoanValidator());
+    private GuarantorsCalculator guarantorsCalculator = new GuarantorsCalculator();
+    private GuarantorValidator guarantorValidator = new GuarantorValidator();
+    private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator);
+    private CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(new PersonValidator(new PersonalDataValidator()), new PurposeOfLoanValidator(), guarantorValidator);
     private CreditApplicationService cut = new CreditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator);
 
     @Test

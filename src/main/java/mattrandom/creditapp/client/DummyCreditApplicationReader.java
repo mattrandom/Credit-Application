@@ -4,6 +4,7 @@ import mattrandom.creditapp.core.model.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class DummyCreditApplicationReader implements CreditApplicationReader {
 
@@ -29,7 +30,8 @@ public class DummyCreditApplicationReader implements CreditApplicationReader {
                 .build();
 
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 50000.00, 30);
-        CreditApplication creditApplication = new CreditApplication(person, purposeOfLoan);
+        Set<Guarantor> guarantorSet = Set.of(new Guarantor("12312312399", 18), new Guarantor("12312312390", 41));
+        CreditApplication creditApplication = new CreditApplication(person, purposeOfLoan, guarantorSet);
 
         return creditApplication;
     }
