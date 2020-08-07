@@ -1,10 +1,12 @@
 package mattrandom.creditapp.core;
 
+import mattrandom.creditapp.core.exception.RequirementNotMetException;
 import mattrandom.creditapp.core.exception.ValidationException;
 import mattrandom.creditapp.core.model.CreditApplication;
 import mattrandom.creditapp.core.model.CreditApplicationTestFactory;
 import mattrandom.creditapp.core.model.Person;
 import mattrandom.creditapp.core.scoring.ScoringCalculator;
+import mattrandom.creditapp.core.validation.CompoundPostValidator;
 import mattrandom.creditapp.core.validation.CreditApplicationValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CreditApplicationServiceTest {
@@ -33,15 +34,21 @@ public class CreditApplicationServiceTest {
     private CreditRatingCalculator creditRatingCalculatorMock;
     @Mock
     private CreditApplicationValidator creditApplicationValidatorMock;
+    @Mock
+    private CompoundPostValidator compoundPostValidatorMock;
 
     @BeforeEach
-    public void init() throws ValidationException {
+    public void init() throws ValidationException, RequirementNotMetException {
         BDDMockito.given(personScoringCalculatorFactoryMock.getCalculator(any(Person.class)))
                 .willReturn(scoringCalculatorMock);
 
         BDDMockito.doNothing()
                 .when(creditApplicationValidatorMock)
                 .validate(any(CreditApplication.class));
+
+        BDDMockito.doNothing()
+                .when(compoundPostValidatorMock)
+                .validate(any(CreditApplication.class), anyInt(), anyDouble());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core;
 
+import mattrandom.creditapp.core.exception.RequirementNotMetCause;
 import mattrandom.creditapp.core.model.*;
 import mattrandom.creditapp.core.scoring.EducationCalculator;
 import mattrandom.creditapp.core.scoring.GuarantorsCalculator;
@@ -11,8 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CreditApplicationServiceBddTest {
     private EducationCalculator educationCalculator = new EducationCalculator();
@@ -23,7 +26,8 @@ public class CreditApplicationServiceBddTest {
     private GuarantorValidator guarantorValidator = new GuarantorValidator();
     private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator);
     private CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(new PersonValidator(new PersonalDataValidator()), new PurposeOfLoanValidator(), guarantorValidator);
-    private CreditApplicationService cut = new CreditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator);
+    private CompoundPostValidator compoundPostValidator = new CompoundPostValidator(new PurposeOfLoanPostValidator(), new ExpensesPostValidator());
+    private CreditApplicationService cut = new CreditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator, compoundPostValidator);
 
     @Test
     @DisplayName("should return Decision is NEGATIVE_REQUIREMENTS_NOT_MET, min loan amount requirement is not met")
@@ -116,5 +120,37 @@ public class CreditApplicationServiceBddTest {
         //then
         assertEquals(DecisionType.CONTACT_REQUIRED, decision.getType());
         assertEquals(400, decision.getScoring());
+    }
+
+    @Test
+    @DisplayName("should return Decision is negative requirements not met, cause too high personal expenses")
+    public void test4() {
+        //given
+        Set<Expense> expenseSet = Set.of(new Expense("1", ExpenseType.PERSONAL, 500.00), new Expense("2", ExpenseType.PERSONAL, 750.00));
+        final FinanceData financeData = new FinanceData(expenseSet, new SourceOfIncome(IncomeType.SELF_EMPLOYMENT, 2000.00));
+        SelfEmployed person = SelfEmployed.Builder
+                .create()
+                .withPersonalData(PersonalData.Builder
+                        .create()
+                        .withName("Test")
+                        .withLastName("Test")
+                        .withMothersMaidenName("Test")
+                        .withEducation(Education.MIDDLE)
+                        .withMaritalStatus(MaritalStatus.MARRIED)
+                        .build())
+                .withFinanceData(financeData)
+                .withYearsSinceFounded(3)
+                .build();
+
+        PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 500000.00, 30);
+        CreditApplication creditApplication = CreditApplicationTestFactory.create(person, purposeOfLoan);
+
+        //when
+        CreditApplicationDecision decision = cut.getDecision(creditApplication);
+
+        //then
+        assertEquals(DecisionType.NEGATIVE_REQUIREMENTS_NOT_MET, decision.getType());
+        assertTrue(decision.getRequirementNotMetCause().isPresent());
+        assertEquals(RequirementNotMetCause.TOO_HIGH_PERSONAL_EXPENSES, decision.getRequirementNotMetCause().get());
     }
 }
