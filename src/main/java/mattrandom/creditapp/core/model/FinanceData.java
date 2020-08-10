@@ -1,9 +1,16 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.NotNull;
+import mattrandom.creditapp.core.annotation.ValidateCollection;
+
 import java.util.*;
 
 public class FinanceData {
+    @NotNull
+    @ValidateCollection
     private final List<SourceOfIncome> sourcesOfIncome;
+    @NotNull
+    @ValidateCollection
     private final Set<Expense> expenses;
 
     public FinanceData(SourceOfIncome... sourceOfIncome) {

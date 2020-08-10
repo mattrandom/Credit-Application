@@ -1,13 +1,25 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.NotNull;
+import mattrandom.creditapp.core.annotation.ValidateCollection;
+import mattrandom.creditapp.core.annotation.ValidateObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public abstract class Person {
+    @NotNull
+    @ValidateObject
     private final PersonalData personalData;
+    @NotNull
+    @ValidateObject
     private final ContactData contactData;
+    @NotNull
+    @ValidateObject
     private final FinanceData financeData;
+    @NotNull
+    @ValidateCollection
     private final List<FamilyMember> familyMembers;
 
     protected Person(PersonalData personalData, ContactData contactData, FinanceData financeData, List<FamilyMember> familyMembers) {

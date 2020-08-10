@@ -1,13 +1,24 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.NotNull;
+import mattrandom.creditapp.core.annotation.ValidateCollection;
+import mattrandom.creditapp.core.annotation.ValidateObject;
+
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
 public class CreditApplication {
+    @NotNull
+    @ValidateObject
     private final Person person;
+    @NotNull
+    @ValidateObject
     private final PurposeOfLoan purposeOfLoan;
+    @NotNull
     private final UUID id;
+    @NotNull
+    @ValidateCollection
     private final Set<Guarantor> guarantors;
 
     public CreditApplication(Person person, PurposeOfLoan purposeOfLoan) {

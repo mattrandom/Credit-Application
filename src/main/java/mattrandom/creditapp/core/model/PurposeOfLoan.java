@@ -1,6 +1,9 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.NotNull;
+
 public class PurposeOfLoan {
+    @NotNull
     private final PurposeOfLoanType purposeOfLoanType;
     private final double amount;
     private final int period;

@@ -7,6 +7,7 @@ import mattrandom.creditapp.core.scoring.GuarantorsCalculator;
 import mattrandom.creditapp.core.scoring.IncomeCalculator;
 import mattrandom.creditapp.core.scoring.MaritalStatusCalculator;
 import mattrandom.creditapp.core.validation.*;
+import mattrandom.creditapp.core.validation.reflection.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,9 +24,11 @@ public class CreditApplicationServiceBddTest {
     private IncomeCalculator incomeCalculator = new IncomeCalculator();
     private SelfEmployedScoringCalculator selfEmployedScoringCalculator = new SelfEmployedScoringCalculator();
     private GuarantorsCalculator guarantorsCalculator = new GuarantorsCalculator();
-    private GuarantorValidator guarantorValidator = new GuarantorValidator();
     private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator);
-    private CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(new PersonValidator(new PersonalDataValidator()), new PurposeOfLoanValidator(), guarantorValidator);
+    private Set<ClassAnnotationProcessor> classProcessors = Set.of(new ExactlyOneNotNullAnnotationProcessor());
+    private Set<FieldAnnotationProcessor> fieldProcessors = Set.of(new NotNullAnnotationProcessor(), new RegexAnnotationProcessor());
+    final ObjectValidator objectValidator = new ObjectValidator(fieldProcessors, classProcessors);
+    private CreditApplicationValidator creditApplicationValidator = new CreditApplicationValidator(objectValidator);
     private CompoundPostValidator compoundPostValidator = new CompoundPostValidator(new PurposeOfLoanPostValidator(), new ExpensesPostValidator());
     private CreditApplicationService cut = new CreditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator, compoundPostValidator);
 
@@ -36,6 +39,14 @@ public class CreditApplicationServiceBddTest {
         List<FamilyMember> familyMemberList = Arrays.asList(new FamilyMember("John",18));
         NaturalPerson person = NaturalPerson.Builder
                 .create()
+                .withPesel("12312312312")
+                .withContactData(ContactData.Builder
+                        .create()
+                        .withHomeAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withCorrespondenceAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withEmail("matt@random.com")
+                        .withPhoneNumber("111222345")
+                        .build())
                 .withFamilyMembers(familyMemberList)
                 .withPersonalData(PersonalData.Builder
                         .create()
@@ -67,6 +78,14 @@ public class CreditApplicationServiceBddTest {
         List<FamilyMember> familyMemberList = Arrays.asList(new FamilyMember("John",18));
         SelfEmployed person = SelfEmployed.Builder
                 .create()
+                .withNip("1234567")
+                .withContactData(ContactData.Builder
+                        .create()
+                        .withHomeAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withCorrespondenceAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withEmail("matt@random.com")
+                        .withPhoneNumber("111222345")
+                        .build())
                 .withFamilyMembers(familyMemberList)
                 .withPersonalData(PersonalData.Builder
                         .create()
@@ -98,6 +117,14 @@ public class CreditApplicationServiceBddTest {
         List<FamilyMember> familyMemberList = Arrays.asList(new FamilyMember("John",18));
         SelfEmployed person = SelfEmployed.Builder
                 .create()
+                .withNip("1234567")
+                .withContactData(ContactData.Builder
+                        .create()
+                        .withHomeAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withCorrespondenceAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withEmail("matt@random.com")
+                        .withPhoneNumber("111222345")
+                        .build())
                 .withFamilyMembers(familyMemberList)
                 .withPersonalData(PersonalData.Builder
                         .create()
@@ -130,6 +157,14 @@ public class CreditApplicationServiceBddTest {
         final FinanceData financeData = new FinanceData(expenseSet, new SourceOfIncome(IncomeType.SELF_EMPLOYMENT, 2000.00));
         SelfEmployed person = SelfEmployed.Builder
                 .create()
+                .withNip("1234567")
+                .withContactData(ContactData.Builder
+                        .create()
+                        .withHomeAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withCorrespondenceAddress(new Address("Test", "Test", "66", "12-345", "Test"))
+                        .withEmail("matt@random.com")
+                        .withPhoneNumber("111222345")
+                        .build())
                 .withPersonalData(PersonalData.Builder
                         .create()
                         .withName("Test")

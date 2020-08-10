@@ -1,8 +1,11 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.ExactlyOneNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@ExactlyOneNotNull({"nip", "regon"})
 public class SelfEmployed extends Person {
     private final String nip;
     private final String regon;

@@ -1,11 +1,23 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.Constants;
+import mattrandom.creditapp.core.annotation.NotNull;
+import mattrandom.creditapp.core.annotation.Regex;
+import mattrandom.creditapp.core.annotation.ValidateObject;
+
 import java.util.Optional;
 
 public class ContactData {
+    @NotNull
+    @Regex(Constants.EMAIL_REGEX)
     private String email;
+    @NotNull
+    @Regex(Constants.PHONE_REGEX)
     private String phoneNumber;
+    @NotNull
+    @ValidateObject
     private Address homeAddress;
+    @NotNull
     private Optional<Address> correspondenceAddress;
 
     private ContactData(String email, String phoneNumber, Address homeAddress, Optional<Address> correspondenceAddress) {

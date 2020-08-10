@@ -1,6 +1,9 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.NotNull;
+
 public class SourceOfIncome {
+    @NotNull
     private final IncomeType incomeType;
     private final double netMonthlyIncome;
 

@@ -1,7 +1,11 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.annotation.NotNull;
+
 public class FamilyMember implements Comparable<FamilyMember> {
+    @NotNull
     private final String name;
+    @NotNull
     private final Integer age;
 
     public FamilyMember(String name, Integer age) {

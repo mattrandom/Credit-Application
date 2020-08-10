@@ -1,10 +1,24 @@
 package mattrandom.creditapp.core.model;
 
+import mattrandom.creditapp.core.Constants;
+import mattrandom.creditapp.core.annotation.NotNull;
+import mattrandom.creditapp.core.annotation.Regex;
+
 public class Address {
+    @NotNull
+    @Regex(Constants.ADDRESS_STREET_REGEX)
     private final String street;
+    @NotNull
+    @Regex(Constants.ADDRESS_CITY_REGEX)
     private final String city;
+    @NotNull
+    @Regex(Constants.ADDRESS_HOUSE_NUMBER_REGEX)
     private final String houseNumber;
+    @NotNull
+    @Regex(Constants.ADDRESS_ZIP_CODE_REGEX)
     private final String zipCode;
+    @NotNull
+    @Regex(Constants.ADDRESS_STATE_REGEX)
     private final String state;
 
     public Address(String street, String city, String houseNumber, String zipCode, String state) {
