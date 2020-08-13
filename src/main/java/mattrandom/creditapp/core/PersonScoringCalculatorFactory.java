@@ -4,13 +4,24 @@ import mattrandom.creditapp.core.model.NaturalPerson;
 import mattrandom.creditapp.core.model.Person;
 import mattrandom.creditapp.core.model.SelfEmployed;
 import mattrandom.creditapp.core.scoring.*;
+import mattrandom.creditapp.di.Inject;
 
 public class PersonScoringCalculatorFactory {
-    private final SelfEmployedScoringCalculator selfEmployedScoringCalculator;
-    private final EducationCalculator educationCalculator;
-    private final MaritalStatusCalculator maritalStatusCalculator;
-    private final IncomeCalculator incomeCalculator;
-    private final GuarantorsCalculator guarantorsCalculator;
+
+    @Inject
+    private SelfEmployedScoringCalculator selfEmployedScoringCalculator;
+
+    @Inject
+    private EducationCalculator educationCalculator;
+
+    @Inject
+    private MaritalStatusCalculator maritalStatusCalculator;
+
+    @Inject
+    private IncomeCalculator incomeCalculator;
+
+    @Inject
+    private GuarantorsCalculator guarantorsCalculator;
 
     public PersonScoringCalculatorFactory(SelfEmployedScoringCalculator selfEmployedScoringCalculator, EducationCalculator educationCalculator, MaritalStatusCalculator maritalStatusCalculator, IncomeCalculator incomeCalculator, GuarantorsCalculator guarantorsCalculator) {
         this.selfEmployedScoringCalculator = selfEmployedScoringCalculator;
@@ -18,6 +29,9 @@ public class PersonScoringCalculatorFactory {
         this.maritalStatusCalculator = maritalStatusCalculator;
         this.incomeCalculator = incomeCalculator;
         this.guarantorsCalculator = guarantorsCalculator;
+    }
+
+    public PersonScoringCalculatorFactory() {
     }
 
     public ScoringCalculator getCalculator(Person person) {

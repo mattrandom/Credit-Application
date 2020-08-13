@@ -17,6 +17,13 @@ public class DummyCreditApplicationReader implements CreditApplicationReader {
 
         NaturalPerson person = NaturalPerson.Builder
                 .create()
+                .withContactData(ContactData.Builder.create()
+                        .withEmail("test@test")
+                        .withPhoneNumber("456456456")
+                        .withHomeAddress(new Address("Testable", "Test", "66", "66-666", "Test"))
+                        .withCorrespondenceAddress(new Address("Testable", "Test", "66", "66-666", "Test"))
+                        .build())
+                .withPesel("11122233345")
                 .withFamilyMembers(familyMembers)
                 .withPersonalData(PersonalData.Builder
                         .create()

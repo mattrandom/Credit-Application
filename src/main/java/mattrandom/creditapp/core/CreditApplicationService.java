@@ -6,6 +6,7 @@ import mattrandom.creditapp.core.model.CreditApplication;
 import mattrandom.creditapp.core.model.Person;
 import mattrandom.creditapp.core.validation.CompoundPostValidator;
 import mattrandom.creditapp.core.validation.CreditApplicationValidator;
+import mattrandom.creditapp.di.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -15,16 +16,27 @@ import static mattrandom.creditapp.core.DecisionType.*;
 
 public class CreditApplicationService {
     private static final Logger log = LoggerFactory.getLogger(CreditApplicationService.class);
-    private final PersonScoringCalculatorFactory personScoringCalculatorFactory;
-    private final CreditRatingCalculator creditRatingCalculator;
-    private final CreditApplicationValidator creditApplicationValidator;
-    private final CompoundPostValidator compoundPostValidator;
+
+    @Inject
+    private PersonScoringCalculatorFactory personScoringCalculatorFactory;
+
+    @Inject
+    private CreditRatingCalculator creditRatingCalculator;
+
+    @Inject
+    private CreditApplicationValidator creditApplicationValidator;
+
+    @Inject
+    private CompoundPostValidator compoundPostValidator;
 
     public CreditApplicationService(PersonScoringCalculatorFactory personScoringCalculatorFactory, CreditRatingCalculator creditRatingCalculator, CreditApplicationValidator creditApplicationValidator, CompoundPostValidator compoundPostValidator) {
         this.personScoringCalculatorFactory = personScoringCalculatorFactory;
         this.creditRatingCalculator = creditRatingCalculator;
         this.creditApplicationValidator = creditApplicationValidator;
         this.compoundPostValidator = compoundPostValidator;
+    }
+
+    public CreditApplicationService() {
     }
 
     public CreditApplicationDecision getDecision(CreditApplication creditApplication) {
