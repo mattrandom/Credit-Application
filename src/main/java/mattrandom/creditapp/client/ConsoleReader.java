@@ -2,6 +2,7 @@ package mattrandom.creditapp.client;
 
 import mattrandom.creditapp.core.model.*;
 
+import java.time.ZoneId;
 import java.util.Scanner;
 
 import static mattrandom.creditapp.core.Constants.*;
@@ -46,7 +47,7 @@ public class ConsoleReader implements CreditApplicationReader {
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(purposeOfLoanType, purposeOfLoanAmount, period);
         FinanceData financeData = new FinanceData(sourcesOfIncome);
 
-        return new CreditApplication(NaturalPerson.Builder
+        return new CreditApplication(ZoneId.of("Europe/Warsaw"), NaturalPerson.Builder
                 .create()
                 .withContactData(contactData)
                 .withFinanceData(financeData)

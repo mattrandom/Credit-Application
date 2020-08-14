@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Set;
 
+import static mattrandom.creditapp.util.AgeUtils.generateBirthDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -18,7 +19,7 @@ public class GuarantorCalculatorTest {
     @DisplayName("should return 75 points when one of the guarantors is under 40 years and the other is over 40 years")
     public void test1() {
         //given
-        Set<Guarantor> guarantorSet = Set.of(new Guarantor("45645645645", 18), new Guarantor("45645645646", 41));
+        Set<Guarantor> guarantorSet = Set.of(new Guarantor("45645645645", generateBirthDate(18)), new Guarantor("45645645646", generateBirthDate(41)));
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 50000.00, 30);
         NaturalPerson person = createNaturalPerson();
         CreditApplication creditApplication = CreditApplicationTestFactory.create(person, purposeOfLoan, guarantorSet);
@@ -32,7 +33,7 @@ public class GuarantorCalculatorTest {
     @DisplayName("should return 50 points when guarantor is under 40 years")
     public void test2() {
         //given
-        Set<Guarantor> guarantorSet = Set.of(new Guarantor("45645645645", 18));
+        Set<Guarantor> guarantorSet = Set.of(new Guarantor("45645645645", generateBirthDate(18)));
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 50000.00, 30);
         NaturalPerson person = createNaturalPerson();
         CreditApplication creditApplication = CreditApplicationTestFactory.create(person, purposeOfLoan, guarantorSet);

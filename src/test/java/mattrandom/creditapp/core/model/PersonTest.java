@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static mattrandom.creditapp.util.AgeUtils.generateBirthDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
@@ -14,9 +15,9 @@ public class PersonTest {
     @DisplayName("familyMembers should be sorted by age descending")
     public void test() {
         //given
-        final FamilyMember john = new FamilyMember("John", 18);
-        final FamilyMember jane = new FamilyMember("Jane", 40);
-        final FamilyMember susie = new FamilyMember("Susie", 5);
+        final FamilyMember john = new FamilyMember("John", generateBirthDate(18));
+        final FamilyMember jane = new FamilyMember("Jane", generateBirthDate(40));
+        final FamilyMember susie = new FamilyMember("Susie", generateBirthDate(5));
         List<FamilyMember> familyMembers = Arrays.asList(john, jane, susie);
 
         //when

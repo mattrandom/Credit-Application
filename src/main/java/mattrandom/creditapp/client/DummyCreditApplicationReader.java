@@ -2,17 +2,20 @@ package mattrandom.creditapp.client;
 
 import mattrandom.creditapp.core.model.*;
 
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import static mattrandom.creditapp.util.AgeUtils.generateBirthDate;
 
 public class DummyCreditApplicationReader implements CreditApplicationReader {
 
     @Override
     public CreditApplication read() {
-        final FamilyMember beatrice = new FamilyMember("Beatrice", 18);
-        final FamilyMember jane = new FamilyMember("Jane", 40);
-        final FamilyMember susie = new FamilyMember("Susie", 5);
+        final FamilyMember beatrice = new FamilyMember("Beatrice", generateBirthDate(18));
+        final FamilyMember jane = new FamilyMember("Jane", generateBirthDate(40));
+        final FamilyMember susie = new FamilyMember("Susie", generateBirthDate(5));
         List<FamilyMember> familyMembers = Arrays.asList(beatrice, jane, susie);
 
         NaturalPerson person = NaturalPerson.Builder
@@ -37,8 +40,8 @@ public class DummyCreditApplicationReader implements CreditApplicationReader {
                 .build();
 
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 50000.00, 30);
-        Set<Guarantor> guarantorSet = Set.of(new Guarantor("12312312399", 18), new Guarantor("12312312390", 41));
-        CreditApplication creditApplication = new CreditApplication(person, purposeOfLoan, guarantorSet);
+        Set<Guarantor> guarantorSet = Set.of(new Guarantor("12312312399", generateBirthDate(18)), new Guarantor("12312312390", generateBirthDate(41)));
+        CreditApplication creditApplication = new CreditApplication(ZoneId.of("Europe/Warsaw"), person, purposeOfLoan, guarantorSet);
 
         return creditApplication;
     }

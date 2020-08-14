@@ -1,5 +1,7 @@
 package mattrandom.creditapp.core;
 
+import java.time.ZoneId;
+
 public interface Constants {
     double MORTGAGE_LOAN_RATE = 0.2;
     double PERSONAL_LOAN_LOAN_RATE = 0.1;
@@ -16,4 +18,5 @@ public interface Constants {
     String ADDRESS_ZIP_CODE_REGEX = "(\\d){2}[-]{1}(\\d){3}";
     String ADDRESS_HOUSE_NUMBER_REGEX = "(\\d){1,3}([\\/]{1}(\\d){1,3})?";
     String PESEL_REGEX = "(\\d){11}";
+    ZoneId DEFAULT_SYSTEM_ZONE_ID = ZoneId.of("America/New_York");
 }
