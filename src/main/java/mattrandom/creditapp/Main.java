@@ -8,11 +8,13 @@ import mattrandom.creditapp.core.validation.reflection.*;
 import mattrandom.creditapp.di.ClassInitializer;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class Main {
     static {
         TimeZone.setDefault(TimeZone.getTimeZone(Constants.DEFAULT_SYSTEM_ZONE_ID));
+        Locale.setDefault(Constants.DEFAULT_SYSTEM_LOCALE);
     }
 
     public static void main(String[] args) throws Exception {

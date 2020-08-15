@@ -14,7 +14,7 @@ public class ClassInitializer {
     private Object getInstance(Class classToInstantiate) throws Exception {
         System.out.println("Creating instance of class " + classToInstantiate.getCanonicalName());
         if (instances.containsKey(classToInstantiate.getCanonicalName())) {
-            System.out.println("Instance of class " + classToInstantiate.getName() + " returned form cache.");
+            System.out.println("Instance of class " + classToInstantiate.getName() + " returned from cache.");
             return instances.get(classToInstantiate.getCanonicalName());
         }
         Object instance = classToInstantiate.getConstructor().newInstance();

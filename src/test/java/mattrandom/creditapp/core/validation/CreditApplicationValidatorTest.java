@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.validation;
 
+import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.exception.ValidationException;
 import mattrandom.creditapp.core.model.*;
 import mattrandom.creditapp.core.validation.reflection.*;
@@ -9,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import static mattrandom.creditapp.core.Constants.*;
+import static mattrandom.creditapp.core.model.CreditApplicationTestFactory.*;
 import static mattrandom.creditapp.util.AgeUtils.generateBirthDate;
 
 class CreditApplicationValidatorTest {
@@ -49,7 +52,7 @@ class CreditApplicationValidatorTest {
 
         PurposeOfLoan purposeOfLoan = new PurposeOfLoan(PurposeOfLoanType.MORTGAGE, 50000.00, 30);
         Set<Guarantor> guarantorSet = Set.of(new Guarantor("12312312399", generateBirthDate(18)), new Guarantor("12312312390", generateBirthDate(41)));
-        CreditApplication creditApplication = new CreditApplication(CreditApplicationTestFactory.CLIENT_TIME_ZONE, person, purposeOfLoan, guarantorSet);
+        CreditApplication creditApplication = new CreditApplication(DEFAULT_SYSTEM_LOCALE, CLIENT_TIME_ZONE, person, purposeOfLoan, guarantorSet);
 
         // when
         cut.validate(creditApplication);

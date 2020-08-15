@@ -6,12 +6,14 @@ import mattrandom.creditapp.core.annotation.ValidateObject;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
 public class CreditApplication {
 
+    private final Locale clientLocale;
     private final ZoneId clientTimeZone;
     private final ZonedDateTime creationDateClientZone;
     @NotNull
@@ -26,7 +28,8 @@ public class CreditApplication {
     @ValidateCollection
     private final Set<Guarantor> guarantors;
 
-    public CreditApplication(ZoneId clientTimeZone, Person person, PurposeOfLoan purposeOfLoan) {
+    public CreditApplication(Locale clientLocale, ZoneId clientTimeZone, Person person, PurposeOfLoan purposeOfLoan) {
+        this.clientLocale = clientLocale;
         this.clientTimeZone = clientTimeZone;
         this.creationDateClientZone = ZonedDateTime.now(clientTimeZone);
         this.person = person;
@@ -35,13 +38,18 @@ public class CreditApplication {
         this.guarantors = new TreeSet<>();
     }
 
-    public CreditApplication(ZoneId clientTimeZone, Person person, PurposeOfLoan purposeOfLoan, Set<Guarantor> guarantors) {
+    public CreditApplication(Locale clientLocale, ZoneId clientTimeZone, Person person, PurposeOfLoan purposeOfLoan, Set<Guarantor> guarantors) {
+        this.clientLocale = clientLocale;
         this.clientTimeZone = clientTimeZone;
         this.creationDateClientZone = ZonedDateTime.now(clientTimeZone);
         this.person = person;
         this.purposeOfLoan = purposeOfLoan;
         this.id = UUID.randomUUID();
         this.guarantors = new TreeSet<>(guarantors);
+    }
+
+    public Locale getClientLocale() {
+        return clientLocale;
     }
 
     public ZoneId getClientTimeZone() {
