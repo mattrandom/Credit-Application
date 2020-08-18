@@ -18,6 +18,10 @@ public class SelfEmployed extends Person {
         this.yearsSinceFounded = yearsSinceFounded;
     }
 
+    public String getNip() {
+        return nip;
+    }
+
     public int getYearsSinceFounded() {
         return yearsSinceFounded;
     }

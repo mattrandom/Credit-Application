@@ -23,12 +23,17 @@ public class PersonScoringCalculatorFactory {
     @Inject
     private GuarantorsCalculator guarantorsCalculator;
 
-    public PersonScoringCalculatorFactory(SelfEmployedScoringCalculator selfEmployedScoringCalculator, EducationCalculator educationCalculator, MaritalStatusCalculator maritalStatusCalculator, IncomeCalculator incomeCalculator, GuarantorsCalculator guarantorsCalculator) {
+    @Inject
+    private BikScoringCalculator bikScoringCalculator;
+
+    public PersonScoringCalculatorFactory(SelfEmployedScoringCalculator selfEmployedScoringCalculator, EducationCalculator educationCalculator, MaritalStatusCalculator maritalStatusCalculator,
+                                          IncomeCalculator incomeCalculator, GuarantorsCalculator guarantorsCalculator, BikScoringCalculator bikScoringCalculator) {
         this.selfEmployedScoringCalculator = selfEmployedScoringCalculator;
         this.educationCalculator = educationCalculator;
         this.maritalStatusCalculator = maritalStatusCalculator;
         this.incomeCalculator = incomeCalculator;
         this.guarantorsCalculator = guarantorsCalculator;
+        this.bikScoringCalculator = bikScoringCalculator;
     }
 
     public PersonScoringCalculatorFactory() {
@@ -36,9 +41,9 @@ public class PersonScoringCalculatorFactory {
 
     public ScoringCalculator getCalculator(Person person) {
         if (person instanceof NaturalPerson) {
-            return new CompoundScoringCalculator(educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator);
+            return new CompoundScoringCalculator(bikScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator);
         } else if (person instanceof SelfEmployed) {
-            return new CompoundScoringCalculator(educationCalculator, maritalStatusCalculator, incomeCalculator, selfEmployedScoringCalculator, guarantorsCalculator);
+            return new CompoundScoringCalculator(bikScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator, selfEmployedScoringCalculator, guarantorsCalculator);
         }
         return null;
     }

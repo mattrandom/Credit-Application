@@ -3,9 +3,11 @@ package mattrandom.creditapp;
 import mattrandom.creditapp.client.CreditApplicationReader;
 import mattrandom.creditapp.client.DummyCreditApplicationReader;
 import mattrandom.creditapp.core.*;
+import mattrandom.creditapp.core.scoring.BikScoringCalculator;
 import mattrandom.creditapp.core.validation.*;
 import mattrandom.creditapp.core.validation.reflection.*;
 import mattrandom.creditapp.di.ClassInitializer;
+import mattrandom.creditapp.integration.BikApiAdapter;
 
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +31,7 @@ public class Main {
         ClassInitializer classInitializer = new ClassInitializer();
         classInitializer.registerInstance(compoundPostValidator);
         classInitializer.registerInstance(objectValidator);
+        classInitializer.registerInstance(new BikScoringCalculator(new BikApiAdapter()));
 
         CreditApplicationManager manager = (CreditApplicationManager) classInitializer.createInstance(CreditApplicationManager.class);
 

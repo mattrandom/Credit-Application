@@ -21,4 +21,5 @@ public interface Constants {
     String PESEL_REGEX = "(\\d){11}";
     ZoneId DEFAULT_SYSTEM_ZONE_ID = ZoneId.of("America/New_York");
     Locale DEFAULT_SYSTEM_LOCALE = Locale.US;
+    String BIK_API_ENDPOINT_URL = "https://test-api.javaskills.pl/udemy/bik/scoring";
 }

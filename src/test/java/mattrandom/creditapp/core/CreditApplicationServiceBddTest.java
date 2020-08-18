@@ -1,15 +1,19 @@
 package mattrandom.creditapp.core;
 
+import mattrandom.creditapp.core.bik.BikApi;
+import mattrandom.creditapp.core.bik.ScoringRequest;
+import mattrandom.creditapp.core.bik.ScoringResponse;
 import mattrandom.creditapp.core.exception.RequirementNotMetCause;
 import mattrandom.creditapp.core.model.*;
-import mattrandom.creditapp.core.scoring.EducationCalculator;
-import mattrandom.creditapp.core.scoring.GuarantorsCalculator;
-import mattrandom.creditapp.core.scoring.IncomeCalculator;
-import mattrandom.creditapp.core.scoring.MaritalStatusCalculator;
+import mattrandom.creditapp.core.scoring.*;
 import mattrandom.creditapp.core.validation.*;
 import mattrandom.creditapp.core.validation.reflection.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +22,7 @@ import java.util.Set;
 import static mattrandom.creditapp.util.AgeUtils.generateBirthDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.*;
 
 public class CreditApplicationServiceBddTest {
     private EducationCalculator educationCalculator = new EducationCalculator();
@@ -25,7 +30,10 @@ public class CreditApplicationServiceBddTest {
     private IncomeCalculator incomeCalculator = new IncomeCalculator();
     private SelfEmployedScoringCalculator selfEmployedScoringCalculator = new SelfEmployedScoringCalculator();
     private GuarantorsCalculator guarantorsCalculator = new GuarantorsCalculator();
-    private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator, educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator);
+    private BikApi bikApiMock = Mockito.mock(BikApi.class);
+    private BikScoringCalculator bikScoringCalculator = new BikScoringCalculator(bikApiMock);
+    private PersonScoringCalculatorFactory personScoringCalculatorFactory = new PersonScoringCalculatorFactory(selfEmployedScoringCalculator,
+            educationCalculator, maritalStatusCalculator, incomeCalculator, guarantorsCalculator, bikScoringCalculator);
     private List<ClassAnnotationProcessor> classProcessors = List.of(new ExactlyOneNotNullAnnotationProcessor());
     private List<FieldAnnotationProcessor> fieldProcessors = List.of(new NotNullAnnotationProcessor(), new RegexAnnotationProcessor());
     final ObjectValidator objectValidator = new ObjectValidator(fieldProcessors, classProcessors);
@@ -33,11 +41,18 @@ public class CreditApplicationServiceBddTest {
     private CompoundPostValidator compoundPostValidator = new CompoundPostValidator(new PurposeOfLoanPostValidator(), new ExpensesPostValidator());
     private CreditApplicationService cut = new CreditApplicationService(personScoringCalculatorFactory, new CreditRatingCalculator(), creditApplicationValidator, compoundPostValidator);
 
+    @BeforeEach
+    public void init() {
+        ScoringResponse res = new ScoringResponse();
+        res.setScoring(0);
+        BDDMockito.given(bikApiMock.getScoring(any(ScoringRequest.class))).willReturn(res);
+    }
+
     @Test
     @DisplayName("should return Decision is NEGATIVE_REQUIREMENTS_NOT_MET, min loan amount requirement is not met")
     public void test1() {
         //given
-        List<FamilyMember> familyMemberList = Arrays.asList(new FamilyMember("John",generateBirthDate(18)));
+        List<FamilyMember> familyMemberList = Arrays.asList(new FamilyMember("John", generateBirthDate(18)));
         NaturalPerson person = NaturalPerson.Builder
                 .create()
                 .withPesel("12312312312")
