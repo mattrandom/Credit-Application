@@ -2,7 +2,10 @@ package mattrandom.creditapp.core.model;
 
 import mattrandom.creditapp.core.annotation.NotNull;
 
-public class PurposeOfLoan {
+import java.io.Serializable;
+
+public class PurposeOfLoan implements Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull
     private final PurposeOfLoanType purposeOfLoanType;
     private final double amount;

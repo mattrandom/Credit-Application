@@ -4,6 +4,7 @@ import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.ValidateCollection;
 import mattrandom.creditapp.core.annotation.ValidateObject;
 
+import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Locale;
@@ -11,8 +12,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
-public class CreditApplication {
-
+public class CreditApplication implements Serializable {
+    public static final long serialVersionUID = 1L;
     private final Locale clientLocale;
     private final ZoneId clientTimeZone;
     private final ZonedDateTime creationDateClientZone;

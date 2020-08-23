@@ -2,7 +2,10 @@ package mattrandom.creditapp.core.model;
 
 import mattrandom.creditapp.core.annotation.NotNull;
 
-public class SourceOfIncome {
+import java.io.Serializable;
+
+public class SourceOfIncome implements Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull
     private final IncomeType incomeType;
     private final double netMonthlyIncome;

@@ -4,7 +4,10 @@ import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull
     @Regex(Constants.ADDRESS_STREET_REGEX)
     private final String street;

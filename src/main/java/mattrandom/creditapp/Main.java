@@ -34,10 +34,12 @@ public class Main {
         classInitializer.registerInstance(new BikScoringCalculator(new BikApiAdapter()));
 
         CreditApplicationManager manager = (CreditApplicationManager) classInitializer.createInstance(CreditApplicationManager.class);
-
-        manager.add(reader.read());
-
-        manager.startProcessing();
-
+        if (args != null && args.length > 0) {
+            String id = args[0];
+            manager.loadApplication(id);
+        } else {
+            manager.add(reader.read());
+            manager.startProcessing();
+        }
     }
 }

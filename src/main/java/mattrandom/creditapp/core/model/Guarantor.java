@@ -4,11 +4,13 @@ import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class Guarantor implements Comparable<Guarantor> {
+public class Guarantor implements Comparable<Guarantor>, Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull
     @Regex(Constants.PESEL_REGEX)
     private final String pesel;

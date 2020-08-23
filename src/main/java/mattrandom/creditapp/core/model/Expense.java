@@ -2,9 +2,11 @@ package mattrandom.creditapp.core.model;
 
 import mattrandom.creditapp.core.annotation.NotNull;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Expense {
+public class Expense implements Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull
     private final String name;
     @NotNull

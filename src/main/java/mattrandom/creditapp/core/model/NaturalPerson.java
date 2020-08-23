@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NaturalPerson extends Person {
+    public static final long serialVersionUID = 1L;
     @NotNull
     @Regex(Constants.PESEL_REGEX)
     private final String pesel;

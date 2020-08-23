@@ -4,7 +4,10 @@ import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
 
-public class PersonalData {
+import java.io.Serializable;
+
+public class PersonalData implements Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull
     @Regex(Constants.NAME_REGEX)
     private final String name;

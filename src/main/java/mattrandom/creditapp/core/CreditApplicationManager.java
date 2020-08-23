@@ -1,6 +1,8 @@
 package mattrandom.creditapp.core;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import mattrandom.creditapp.core.model.CreditApplication;
+import mattrandom.creditapp.core.model.ProcessedCreditApplication;
 import mattrandom.creditapp.di.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,9 @@ public class CreditApplicationManager {
     @Inject
     private CreditApplicationService creditApplicationService;
 
+    @Inject
+    private FileManager fileManager;
+
     private Deque<CreditApplication> queue = new ArrayDeque<>();
 
     public CreditApplicationManager() {
@@ -34,7 +39,19 @@ public class CreditApplicationManager {
             log.info(String.format("Starting processing application with id %s", creditApplication.getId()));
             CreditApplicationDecision decision = creditApplicationService.getDecision(creditApplication);
             log.info(creditApplicationDecisionFactory.getDesisionString(creditApplication, decision));
+            fileManager.write(new ProcessedCreditApplication(creditApplication, decision));
             MDC.remove("id");
         }
+    }
+
+    public void loadApplication(String id) {
+        ProcessedCreditApplication read = fileManager.read(id);
+
+        try {
+            log.info(ObjectMapperService.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(read));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
     }
 }
