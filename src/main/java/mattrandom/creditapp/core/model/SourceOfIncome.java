@@ -1,14 +1,22 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.annotation.NotNull;
 
 import java.io.Serializable;
 
 public class SourceOfIncome implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
-    private final IncomeType incomeType;
-    private final double netMonthlyIncome;
+    @JsonProperty
+    private IncomeType incomeType;
+
+    @JsonProperty
+    private double netMonthlyIncome;
+
+    public SourceOfIncome() {
+    }
 
     public SourceOfIncome(IncomeType incomeType, double netMonthlyIncome) {
         this.incomeType = incomeType;

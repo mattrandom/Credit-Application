@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
@@ -11,11 +12,18 @@ import java.util.Objects;
 
 public class Guarantor implements Comparable<Guarantor>, Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.PESEL_REGEX)
-    private final String pesel;
+    private String pesel;
+
     @NotNull
-    private final LocalDate birthDate;
+    @JsonProperty
+    private LocalDate birthDate;
+
+    public Guarantor() {
+    }
 
     public Guarantor(String pesel, LocalDate birthDate) {
         this.pesel = pesel;

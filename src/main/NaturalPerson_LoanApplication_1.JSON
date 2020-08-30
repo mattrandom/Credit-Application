@@ -1,0 +1,90 @@
+{
+  "clientLocale": "en_US",
+  "clientTimeZone": "Europe/Warsaw",
+  "naturalPerson": {
+    "personalData": {
+      "name": "Matt",
+      "lastName": "Random",
+      "mothersMaidenName": "Whatever",
+      "maritalStatus": "MARRIED",
+      "education": "TERTIARY"
+    },
+    "contactData": {
+      "email": "mattrandom92@gmail.com",
+      "phoneNumber": "555999666",
+      "homeAddress": {
+        "street": "Whocares",
+        "city": "Posen",
+        "houseNumber": "66",
+        "zipCode": "11-333",
+        "state": "Greater Poland"
+      },
+      "correspondenceAddress": null
+    },
+    "financeData": {
+      "sourcesOfIncome": [
+        {
+          "incomeType": "SELF_EMPLOYMENT",
+          "netMonthlyIncome": 16000.0
+        }
+      ],
+      "expenses": []
+    },
+    "familyMembers": [
+      {
+        "name": "Marie",
+        "birthDate": "1980-08-29",
+        "age": 40
+      },
+      {
+        "name": "Fiona",
+        "birthDate": "2002-08-29",
+        "age": 18
+      },
+      {
+        "name": "Bella",
+        "birthDate": "2015-08-29",
+        "age": 5
+      }
+    ],
+    "pesel": "11122233345",
+    "balance": 16000.0,
+    "incomePerFamilyMember": 4000.0,
+    "numOfFamilyDependants": 4,
+    "familyMembersSortedByName": [
+      {
+        "name": "Bella",
+        "birthDate": "2015-08-29",
+        "age": 5
+      },
+      {
+        "name": "Fiona",
+        "birthDate": "2002-08-29",
+        "age": 18
+      },
+      {
+        "name": "Marie",
+        "birthDate": "1980-08-29",
+        "age": 40
+      }
+    ]
+  },
+  "selfEmployed": null,
+  "purposeOfLoan": {
+    "purposeOfLoanType": "PERSONAL_LOAN",
+    "amount": 100000.0,
+    "period": 30
+  },
+  "guarantors": [
+    {
+      "pesel": "12312312399",
+      "birthDate": "2002-08-29",
+      "age": 18
+    },
+    {
+      "pesel": "12312312390",
+      "birthDate": "1979-08-29",
+      "age": 41
+    }
+  ]
+}

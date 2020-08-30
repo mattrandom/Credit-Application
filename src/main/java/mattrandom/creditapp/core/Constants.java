@@ -19,8 +19,9 @@ public interface Constants {
     String ADDRESS_ZIP_CODE_REGEX = "(\\d){2}[-]{1}(\\d){3}";
     String ADDRESS_HOUSE_NUMBER_REGEX = "(\\d){1,3}([\\/]{1}(\\d){1,3})?";
     String PESEL_REGEX = "(\\d){11}";
+    String ARG_INDEX_ONE_REGEX = "[NS]-\\d*";
     ZoneId DEFAULT_SYSTEM_ZONE_ID = ZoneId.of("America/New_York");
     Locale DEFAULT_SYSTEM_LOCALE = Locale.US;
     String BIK_API_ENDPOINT_URL = "https://test-api.javaskills.pl/udemy/bik/scoring";
-    String OUTPUT_PATH = "C:\\Users\\mattr\\OneDrive\\JAVA\\Udemy\\Praktyczny kurs Java I\\IO generates\\";
+    String OUTPUT_PATH = System.getProperty("user.dir");
 }

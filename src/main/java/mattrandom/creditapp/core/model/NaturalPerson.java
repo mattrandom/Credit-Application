@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
@@ -9,9 +10,14 @@ import java.util.List;
 
 public class NaturalPerson extends Person {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.PESEL_REGEX)
-    private final String pesel;
+    private String pesel;
+
+    public NaturalPerson() {
+    }
 
     private NaturalPerson(String pesel, PersonalData personalData, ContactData contactData, FinanceData financeData, List<FamilyMember> familyMemberList) {
         super(personalData, contactData, financeData, familyMemberList);

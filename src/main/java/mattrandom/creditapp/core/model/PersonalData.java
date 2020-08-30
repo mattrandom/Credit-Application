@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
@@ -8,19 +9,32 @@ import java.io.Serializable;
 
 public class PersonalData implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.NAME_REGEX)
-    private final String name;
+    private String name;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.LAST_NAME_REGEX)
-    private final String lastName;
+    private String lastName;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.LAST_NAME_REGEX)
-    private final String mothersMaidenName;
+    private String mothersMaidenName;
+
     @NotNull
-    private final MaritalStatus maritalStatus;
+    @JsonProperty
+    private MaritalStatus maritalStatus;
+
     @NotNull
-    private final Education education;
+    @JsonProperty
+    private Education education;
+
+    public PersonalData() {
+    }
 
     private PersonalData(String name, String lastName, String mothersMaidenName, MaritalStatus maritalStatus,
                          Education education) {

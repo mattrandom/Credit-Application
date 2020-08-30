@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.ValidateCollection;
 
@@ -8,12 +9,19 @@ import java.util.*;
 
 public class FinanceData implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @ValidateCollection
-    private final List<SourceOfIncome> sourcesOfIncome;
+    private List<SourceOfIncome> sourcesOfIncome;
+
     @NotNull
+    @JsonProperty
     @ValidateCollection
-    private final Set<Expense> expenses;
+    private Set<Expense> expenses;
+
+    public FinanceData() {
+    }
 
     public FinanceData(SourceOfIncome... sourceOfIncome) {
         this.sourcesOfIncome = Arrays.asList(sourceOfIncome);

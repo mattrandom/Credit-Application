@@ -1,5 +1,7 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
@@ -10,17 +12,28 @@ import java.util.Optional;
 
 public class ContactData implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.EMAIL_REGEX)
     private String email;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.PHONE_REGEX)
     private String phoneNumber;
+
     @NotNull
+    @JsonProperty
     @ValidateObject
     private Address homeAddress;
-    @NotNull
-    private transient Optional<Address> correspondenceAddress;
+
+    @JsonIgnore
+    @JsonProperty
+    private transient Optional<Address> correspondenceAddress = Optional.empty();
+
+    public ContactData() {
+    }
 
     private ContactData(String email, String phoneNumber, Address homeAddress, Optional<Address> correspondenceAddress) {
         this.email = email;
@@ -51,7 +64,8 @@ public class ContactData implements Serializable {
         private Address homeAddress;
         private Address correspondenceAddress;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public static Builder create() {
             return new Builder();

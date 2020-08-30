@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import mattrandom.creditapp.core.model.CreditApplication;
 import mattrandom.creditapp.core.model.ProcessedCreditApplication;
 import mattrandom.creditapp.di.Inject;
+import mattrandom.creditapp.util.ObjectMapperService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -33,7 +35,7 @@ public class CreditApplicationManager {
         queue.addFirst(creditApplication);
     }
 
-    public void startProcessing() {
+    public void startProcessing() throws IOException {
         while (!queue.isEmpty()) {
             CreditApplication creditApplication = queue.pollLast();
             log.info(String.format("Starting processing application with id %s", creditApplication.getId()));
@@ -44,14 +46,16 @@ public class CreditApplicationManager {
         }
     }
 
-    public void loadApplication(String id) {
-        ProcessedCreditApplication read = fileManager.read(id);
-
+    public void loadApplication(String appId, String personId) throws IOException, ClassNotFoundException {
+        ProcessedCreditApplication read = fileManager.read(appId, personId);
         try {
             log.info(ObjectMapperService.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(read));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+    }
 
+    public void init() throws IOException {
+        fileManager.init();
     }
 }

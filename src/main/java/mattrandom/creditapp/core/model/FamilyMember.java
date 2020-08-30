@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.annotation.NotNull;
 
 import java.io.Serializable;
@@ -8,10 +9,17 @@ import java.time.Period;
 
 public class FamilyMember implements Comparable<FamilyMember>, Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
-    private final String name;
+    @JsonProperty
+    private String name;
+
     @NotNull
-    private final LocalDate birthDate;
+    @JsonProperty
+    private LocalDate birthDate;
+
+    public FamilyMember() {
+    }
 
     public FamilyMember(String name, LocalDate birthDate) {
         this.name = name;

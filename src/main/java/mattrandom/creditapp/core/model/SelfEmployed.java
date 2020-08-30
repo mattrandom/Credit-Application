@@ -1,17 +1,26 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.annotation.ExactlyOneNotNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ExactlyOneNotNull({"nip", "regon"})
 public class SelfEmployed extends Person {
-    public static final long serialVersionUID = 1L;
-    private final String nip;
-    private final String regon;
-    private final int yearsSinceFounded;
+    public static long serialVersionUID = 1L;
+
+    @JsonProperty
+    private String nip;
+
+    @JsonProperty
+    private String regon;
+
+    @JsonProperty
+    private int yearsSinceFounded;
+
+    public SelfEmployed() {
+    }
 
     private SelfEmployed(int yearsSinceFounded, String nip, String regon, PersonalData personalData, ContactData contactData, FinanceData financeData, List<FamilyMember> familyMemberList) {
         super(personalData, contactData, financeData, familyMemberList);

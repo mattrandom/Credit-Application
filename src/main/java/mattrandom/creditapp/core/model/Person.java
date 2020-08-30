@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.ValidateCollection;
 import mattrandom.creditapp.core.annotation.ValidateObject;
@@ -11,18 +12,29 @@ import java.util.List;
 
 public abstract class Person implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @ValidateObject
-    private final PersonalData personalData;
+    private PersonalData personalData;
+
     @NotNull
+    @JsonProperty
     @ValidateObject
-    private final ContactData contactData;
+    private ContactData contactData;
+
     @NotNull
+    @JsonProperty
     @ValidateObject
-    private final FinanceData financeData;
+    private FinanceData financeData;
+
     @NotNull
+    @JsonProperty
     @ValidateCollection
-    private final List<FamilyMember> familyMembers;
+    private List<FamilyMember> familyMembers;
+
+    public Person() {
+    }
 
     protected Person(PersonalData personalData, ContactData contactData, FinanceData financeData, List<FamilyMember> familyMembers) {
         this.personalData = personalData;

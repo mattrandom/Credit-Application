@@ -1,5 +1,6 @@
 package mattrandom.creditapp.core.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mattrandom.creditapp.core.Constants;
 import mattrandom.creditapp.core.annotation.NotNull;
 import mattrandom.creditapp.core.annotation.Regex;
@@ -8,21 +9,34 @@ import java.io.Serializable;
 
 public class Address implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.ADDRESS_STREET_REGEX)
-    private final String street;
+    private String street;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.ADDRESS_CITY_REGEX)
-    private final String city;
+    private String city;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.ADDRESS_HOUSE_NUMBER_REGEX)
-    private final String houseNumber;
+    private String houseNumber;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.ADDRESS_ZIP_CODE_REGEX)
-    private final String zipCode;
+    private String zipCode;
+
     @NotNull
+    @JsonProperty
     @Regex(Constants.ADDRESS_STATE_REGEX)
-    private final String state;
+    private String state;
+
+    public Address() {
+    }
 
     public Address(String street, String city, String houseNumber, String zipCode, String state) {
         this.street = street;
@@ -40,25 +54,5 @@ public class Address implements Serializable {
                 houseNumber.equalsIgnoreCase(address.houseNumber) &&
                 zipCode.equalsIgnoreCase(address.zipCode) &&
                 state.equalsIgnoreCase(address.state);
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public String getState() {
-        return state;
     }
 }

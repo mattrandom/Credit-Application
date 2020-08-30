@@ -1,0 +1,94 @@
+{
+  "clientLocale": "pl_PL",
+  "clientTimeZone": "Europe/Warsaw",
+  "naturalPerson": null,
+  "selfEmployed": {
+    "personalData": {
+      "name": "Test",
+      "lastName": "Test",
+      "mothersMaidenName": "Test",
+      "maritalStatus": "MARRIED",
+      "education": "MIDDLE"
+    },
+    "contactData": {
+      "email": "test@test",
+      "phoneNumber": "456456456",
+      "homeAddress": {
+        "street": "Testable",
+        "city": "Test",
+        "houseNumber": "66",
+        "zipCode": "66-666",
+        "state": "Test"
+      },
+      "correspondenceAddress": null
+    },
+    "financeData": {
+      "sourcesOfIncome": [
+        {
+          "incomeType": "SELF_EMPLOYMENT",
+          "netMonthlyIncome": 10000.0
+        }
+      ],
+      "expenses": []
+    },
+    "familyMembers": [
+      {
+        "name": "Jane",
+        "birthDate": "1980-08-29",
+        "age": 40
+      },
+      {
+        "name": "Beatrice",
+        "birthDate": "2002-08-29",
+        "age": 18
+      },
+      {
+        "name": "Susie",
+        "birthDate": "2015-08-29",
+        "age": 5
+      }
+    ],
+    "nip": "11122233345",
+    "regon": null,
+    "yearsSinceFounded": 0,
+    "balance": 10000.0,
+    "incomePerFamilyMember": 2500.0,
+    "familyMembersSortedByName": [
+      {
+        "name": "Beatrice",
+        "birthDate": "2002-08-29",
+        "age": 18
+      },
+      {
+        "name": "Jane",
+        "birthDate": "1980-08-29",
+        "age": 40
+      },
+      {
+        "name": "Susie",
+        "birthDate": "2015-08-29",
+        "age": 5
+      }
+    ],
+    "numOfFamilyDependants": 4
+  },
+  "purposeOfLoan": {
+    "purposeOfLoanType": "MORTGAGE",
+    "amount": 50000.0,
+    "period": 30
+  },
+  "guarantors": [
+    {
+      "pesel": "12312312399",
+      "birthDate": "2002-08-29",
+      "age": 18
+    },
+    {
+      "pesel": "12312312390",
+      "birthDate": "1979-08-29",
+      "age": 41
+    }
+  ]
+}
+
+
